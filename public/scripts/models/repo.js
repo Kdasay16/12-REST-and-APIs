@@ -6,6 +6,22 @@
   repos.all = [];
 
   repos.requestRepos = function(callback) {
+    $.ajax({
+      // go get the data
+      url: 'https://api.github.com/user/repos?type=owner',
+      method: 'GET',
+      headers: {
+        Authorization: `token ${githubToken}`
+      }
+    })
+    .then(
+      // render the data
+      function(data) {
+        repos.all = data;
+      },
+      err => console.error(err)
+    )
+    .then(callback)
     // TODO: How would you like to fetch your repos? Don't forget to call the callback.
   };
 
